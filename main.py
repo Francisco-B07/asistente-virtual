@@ -4,6 +4,7 @@ import tensorflow as tf
 import numpy as np
 import shutil
 import gdown
+import h5py
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
