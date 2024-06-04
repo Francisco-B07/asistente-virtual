@@ -71,13 +71,23 @@ def load_users():
 
 # Cargar el modelo
 
+file_path = os.path.abspath("./best_model.h5")
+print(f"Ruta absoluta del archivo: {file_path}")
+
+# Intenta cargar el modelo con la ruta absoluta
+import tensorflow as tf
+
 try:
-    model = tf.keras.models.load_model("./best_model.h5")
+    model = tf.keras.models.load_model(file_path)
     print("Modelo cargado exitosamente.")
 except OSError as e:
     print(f"Error al cargar el modelo: {e}")
    
-
+try:
+    with h5py.File(file_path, 'r') as f:
+        print("Archivo .h5 abierto exitosamente.")
+except OSError as e:
+    print(f"Error al abrir el archivo: {e}")
 
 # Limpiar y convertir los precios a valores numéricos
 def proc_prices():
