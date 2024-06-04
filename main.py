@@ -68,27 +68,12 @@ def load_users():
 
 # -------Procesamiento de imagenes-------
 
-Nombre del archivo a descargar y cargar
-archivo_modelo = 'best_model.h5'
 
-# Verificar si el archivo ya existe en el sistema
-if not os.path.exists(archivo_modelo):
-    # URL del archivo en Google Drive
-    url = 'https://drive.google.com/uc?id=1dqMwAW4ZTlZgs04rEVcZ7454ZthHta7u'
-    
-    # Descargar el archivo
-    gdown.download(url, archivo_modelo, quiet=False)
-else:
-    print(f"El archivo '{archivo_modelo}' ya existe en el sistema.")
 
 # Cargar el modelo
-if os.path.exists(archivo_modelo):
-    model = tf.keras.models.load_model("./best_model.h5")
-    print("Modelo cargado exitosamente.")
-    print(model.summary())
-else:
-    print("No se pudo cargar el modelo porque el archivo no existe.")
 
+model = tf.keras.models.load_model("./best_model.h5")
+   
 
 
 # Limpiar y convertir los precios a valores numéricos
