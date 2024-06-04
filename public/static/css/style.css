@@ -1,0 +1,128 @@
+.title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message {
+  margin-top: 200px;
+  font-size: 2em; /* Tamaño de la letra más grande */
+  font-weight: bold; /* Texto en negrita */
+  color: rgb(84, 16, 245); /* Color opcional, por ejemplo rojo */
+}
+
+.logo {
+  border-radius: 100%;
+  border: 3px solid rgb(84, 16, 245);
+  cursor: pointer;
+}
+
+.boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  border: 2px solid rgb(84, 16, 245);
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  height: 40px;
+  color: black;
+}
+
+.boton:hover {
+  background-color: rgb(84, 16, 245);
+  color: white;
+  text-decoration: none;
+}
+
+.product-name {
+  text-wrap: balance;
+}
+
+.product-items {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+/* input image */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  height: 250px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(84, 16, 245, 0.8);
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.custom-file-upload:hover {
+  background-color: rgb(84, 16, 245, 0.9);
+}
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+}
+
+.image-preview {
+  margin: 50px 0;
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#image-preview {
+  margin: 50px 0;
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-uploaded {
+  background-color: rgb(35, 219, 35);
+  height: 250px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+#upload-message {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #28a745;
+  display: none;
+}
