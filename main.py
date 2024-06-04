@@ -69,146 +69,146 @@ def load_users():
 # # -------Procesamiento de imagenes-------
 
 # Nombre del archivo a descargar y cargar
-archivo_modelo = 'best_model.h5'
+# archivo_modelo = 'best_model.h5'
 
-# Verificar si el archivo ya existe en el sistema
-if not os.path.exists(archivo_modelo):
-    # URL del archivo en Google Drive
-    url = 'https://drive.google.com/uc?id=1dqMwAW4ZTlZgs04rEVcZ7454ZthHta7u'
+# # Verificar si el archivo ya existe en el sistema
+# if not os.path.exists(archivo_modelo):
+#     # URL del archivo en Google Drive
+#     url = 'https://drive.google.com/uc?id=1dqMwAW4ZTlZgs04rEVcZ7454ZthHta7u'
     
-    # Descargar el archivo
-    gdown.download(url, archivo_modelo, quiet=False)
-else:
-    print(f"El archivo '{archivo_modelo}' ya existe en el sistema.")
-
-# # Cargar el modelo
-# if os.path.exists(archivo_modelo):
-#     model = tf.keras.models.load_model("./best_model.h5")
-#     print("Modelo cargado exitosamente.")
-#     print(model.summary())
+#     # Descargar el archivo
+#     gdown.download(url, archivo_modelo, quiet=False)
 # else:
-#     print("No se pudo cargar el modelo porque el archivo no existe.")
+#     print(f"El archivo '{archivo_modelo}' ya existe en el sistema.")
+
+# Cargar el modelo
+if os.path.exists(archivo_modelo):
+    model = tf.keras.models.load_model("./best_model.h5")
+    print("Modelo cargado exitosamente.")
+    print(model.summary())
+else:
+    print("No se pudo cargar el modelo porque el archivo no existe.")
 
 
 
-# # Limpiar y convertir los precios a valores numéricos
-# def proc_prices():
-#     # Ruta del archivo CSV
-#     prices_path = './VerdurasNormalizadas.csv'
+# Limpiar y convertir los precios a valores numéricos
+def proc_prices():
+    # Ruta del archivo CSV
+    prices_path = './VerdurasNormalizadas.csv'
 
-#     # Cargar el archivo CSV
-#     prices_df = pd.read_csv(prices_path)
+    # Cargar el archivo CSV
+    prices_df = pd.read_csv(prices_path)
 
-#     # Limpiar y convertir los precios a valores numéricos
-#     prices_df['Precio'] = prices_df['Precio'].str.replace(r'[^0-9]', '', regex=True)
-#     prices_df['Precio'] = pd.to_numeric(prices_df['Precio'], errors='coerce') / 100
+    # Limpiar y convertir los precios a valores numéricos
+    prices_df['Precio'] = prices_df['Precio'].str.replace(r'[^0-9]', '', regex=True)
+    prices_df['Precio'] = pd.to_numeric(prices_df['Precio'], errors='coerce') / 100
 
-#     # Imprimir el DataFrame resultante
-#     # print(prices_df)
+    # Imprimir el DataFrame resultante
+    # print(prices_df)
 
-#     return prices_df
+    return prices_df
 
 
 
-# def gen_data():
-#     # Directorio base actual donde se encuentran las imágenes aumentadas
-#     current_augmented_data_dir = './dataset/augmented_data'
+def gen_data():
+    # Directorio base actual donde se encuentran las imágenes aumentadas
+    current_augmented_data_dir = './dataset/augmented_data'
 
-#     # Nuevo directorio base donde se reorganizarán las imágenes aumentadas
-#     new_augmented_data_dir = './reorganized_dataset'
-#     os.makedirs(new_augmented_data_dir, exist_ok=True)  # Crear el directorio si no existe
+    # Nuevo directorio base donde se reorganizarán las imágenes aumentadas
+    new_augmented_data_dir = './reorganized_dataset'
+    os.makedirs(new_augmented_data_dir, exist_ok=True)  # Crear el directorio si no existe
 
-#     # Recorrer cada supermercado y cada fruta/verdura en el directorio actual
-#     for supermarket in os.listdir(current_augmented_data_dir):
-#         supermarket_path = os.path.join(current_augmented_data_dir, supermarket)
-#         if os.path.isdir(supermarket_path):
-#             for fruit in os.listdir(supermarket_path):
-#                 fruit_path = os.path.join(supermarket_path, fruit)
-#                 if os.path.isdir(fruit_path):
-#                     for img_name in os.listdir(fruit_path):
-#                         img_path = os.path.join(fruit_path, img_name)
-#                         try:
-#                             # Crear la nueva ruta para la imagen
-#                             new_dir_path = os.path.join(new_augmented_data_dir, fruit, supermarket)
-#                             os.makedirs(new_dir_path, exist_ok=True)  # Crear el directorio si no existe
+    # Recorrer cada supermercado y cada fruta/verdura en el directorio actual
+    for supermarket in os.listdir(current_augmented_data_dir):
+        supermarket_path = os.path.join(current_augmented_data_dir, supermarket)
+        if os.path.isdir(supermarket_path):
+            for fruit in os.listdir(supermarket_path):
+                fruit_path = os.path.join(supermarket_path, fruit)
+                if os.path.isdir(fruit_path):
+                    for img_name in os.listdir(fruit_path):
+                        img_path = os.path.join(fruit_path, img_name)
+                        try:
+                            # Crear la nueva ruta para la imagen
+                            new_dir_path = os.path.join(new_augmented_data_dir, fruit, supermarket)
+                            os.makedirs(new_dir_path, exist_ok=True)  # Crear el directorio si no existe
 
-#                             # Mover la imagen a la nueva ubicación
-#                             new_img_path = os.path.join(new_dir_path, img_name)
-#                             shutil.move(img_path, new_img_path)
-#                         except Exception as e:
-#                             print(f"Error moviendo la imagen {img_path}: {e}")
+                            # Mover la imagen a la nueva ubicación
+                            new_img_path = os.path.join(new_dir_path, img_name)
+                            shutil.move(img_path, new_img_path)
+                        except Exception as e:
+                            print(f"Error moviendo la imagen {img_path}: {e}")
 
-#     print("Reorganización completa.")
+    print("Reorganización completa.")
 
-# def train():
-#     # Directorios de datos
-#     base_dir = './reorganized_dataset'
-#     train_dir = os.path.join(base_dir, 'train')
-#     validation_dir = os.path.join(base_dir, 'validation')
+def train():
+    # Directorios de datos
+    base_dir = './reorganized_dataset'
+    train_dir = os.path.join(base_dir, 'train')
+    validation_dir = os.path.join(base_dir, 'validation')
 
-#     # Parámetros
-#     img_height, img_width = 150, 150
-#     batch_size = 32
-#     epochs = 25
+    # Parámetros
+    img_height, img_width = 150, 150
+    batch_size = 32
+    epochs = 25
 
-#     # Generadores de datos con aumentación
-#     train_datagen = ImageDataGenerator(
-#         rescale=1./255,
-#         rotation_range=40,
-#         width_shift_range=0.2,
-#         height_shift_range=0.2,
-#         shear_range=0.2,
-#         zoom_range=0.2,
-#         horizontal_flip=True,
-#         fill_mode='nearest',
-#         validation_split=0.2 # Utilizamos el 20% de los datos para validación
-#     )
+    # Generadores de datos con aumentación
+    train_datagen = ImageDataGenerator(
+        rescale=1./255,
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest',
+        validation_split=0.2 # Utilizamos el 20% de los datos para validación
+    )
 
-#     train_generator = train_datagen.flow_from_directory(
-#         base_dir,
-#         target_size=(img_height, img_width),
-#         batch_size=batch_size,
-#         class_mode='categorical',
-#         subset='training'
-#     )
+    train_generator = train_datagen.flow_from_directory(
+        base_dir,
+        target_size=(img_height, img_width),
+        batch_size=batch_size,
+        class_mode='categorical',
+        subset='training'
+    )
  
-#     return train_generator
+    return train_generator
 
 
-# # Función para encontrar el supermercado más barato para un producto dado
-# def supermercado_mas_barato(producto, prices_df):
-#     precios_producto = prices_df[prices_df['Producto'] == producto]
-#     supermercado_mas_barato = precios_producto.loc[precios_producto['Precio'].idxmin(), 'Supermercado']
-#     precio_mas_bajo = precios_producto['Precio'].min()
-#     return supermercado_mas_barato, precio_mas_bajo
+# Función para encontrar el supermercado más barato para un producto dado
+def supermercado_mas_barato(producto, prices_df):
+    precios_producto = prices_df[prices_df['Producto'] == producto]
+    supermercado_mas_barato = precios_producto.loc[precios_producto['Precio'].idxmin(), 'Supermercado']
+    precio_mas_bajo = precios_producto['Precio'].min()
+    return supermercado_mas_barato, precio_mas_bajo
 
 
-# # Función para clasificar una imagen y encontrar el supermercado más barato para esa categoría
-# def clasificar_y_encontrar_supermercado(imagen_path, prices_df):
-#     # Cargar la imagen y preprocesarla
-#     img = load_img(imagen_path, target_size=(150, 150))
-#     img_array = img_to_array(img)
-#     img_array = img_array.reshape((1,) + img_array.shape)
-#     img_array /= 255.0 # Normalizar los valores de píxeles
+# Función para clasificar una imagen y encontrar el supermercado más barato para esa categoría
+def clasificar_y_encontrar_supermercado(imagen_path, prices_df):
+    # Cargar la imagen y preprocesarla
+    img = load_img(imagen_path, target_size=(150, 150))
+    img_array = img_to_array(img)
+    img_array = img_array.reshape((1,) + img_array.shape)
+    img_array /= 255.0 # Normalizar los valores de píxeles
 
-#     # Clasificar la imagen utilizando el modelo
-#     prediction = model.predict(img_array)
-#     clase_predicha = np.argmax(prediction)
+    # Clasificar la imagen utilizando el modelo
+    prediction = model.predict(img_array)
+    clase_predicha = np.argmax(prediction)
 
-#     # Mapear la clase predicha al nombre de la fruta o verdura
-#     # gen_data()
-#     train_generator = train()
-#     print("train",train_generator)
-#     if train_generator:
-#         clases = train_generator.class_indices
-#         frutas_verduras = {v: k for k, v in clases.items()}
-#         producto = frutas_verduras[clase_predicha]
+    # Mapear la clase predicha al nombre de la fruta o verdura
+    # gen_data()
+    train_generator = train()
+    print("train",train_generator)
+    if train_generator:
+        clases = train_generator.class_indices
+        frutas_verduras = {v: k for k, v in clases.items()}
+        producto = frutas_verduras[clase_predicha]
 
-#         # Encontrar el supermercado más barato para el producto dado
-#         supermercado, precio = supermercado_mas_barato(producto, prices_df)
-#         return producto, supermercado, precio
-#     else:
-#         return None, None, None
+        # Encontrar el supermercado más barato para el producto dado
+        supermercado, precio = supermercado_mas_barato(producto, prices_df)
+        return producto, supermercado, precio
+    else:
+        return None, None, None
 
 
 
@@ -232,18 +232,18 @@ async def read_root(request: Request):
     # Ruta de la imagen que deseas clasificar y comparar precios
     imagen_path = './public/static/uploads/imagen.jpg' 
 
-    # prices_df = proc_prices()
+    prices_df = proc_prices()
 
     # Clasificar la imagen y encontrar el supermercado más barato
-    # if imagen_path:
-    #     producto, supermercado, precio = clasificar_y_encontrar_supermercado(imagen_path, prices_df)
+    if imagen_path:
+        producto, supermercado, precio = clasificar_y_encontrar_supermercado(imagen_path, prices_df)
 
     # Imprimir el resultado
-    # if producto:
-    #     return templates.TemplateResponse("search-by-image.html", {"request": request, "supermercado": supermercado, "precio": precio, "producto": producto})
-    # else:
-        # return templates.TemplateResponse("search-by-image.html", {"request": request})
-    return templates.TemplateResponse("search-by-image.html", {"request": request})
+    if producto:
+        return templates.TemplateResponse("search-by-image.html", {"request": request, "supermercado": supermercado, "precio": precio, "producto": producto})
+    else:
+        return templates.TemplateResponse("search-by-image.html", {"request": request})
+    # return templates.TemplateResponse("search-by-image.html", {"request": request})
 
 
 
