@@ -71,7 +71,11 @@ def load_users():
 
 # Cargar el modelo
 
-model = tf.keras.models.load_model("./best_model.h5")
+try:
+    model = tf.keras.models.load_model("./best_model.h5")
+    print("Modelo cargado exitosamente.")
+except OSError as e:
+    print(f"Error al cargar el modelo: {e}")
    
 
 
