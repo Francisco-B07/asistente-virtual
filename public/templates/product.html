@@ -68,8 +68,11 @@
 
         // Llamada a la API pasando el ID 555
         // `https://sistema-de-recomendacion-2.onrender.com/recomendaciones/${UserID}`
+        // `https://asistente-virtual-v3xy.onrender.com/recomendaciones/${UserID}`
         // http://127.0.0.1:8000/recomendaciones/${UserID}
-        fetch(`http://127.0.0.1:8000/recomendaciones/${UserID}`)
+        fetch(
+          `https://asistente-virtual-v3xy.onrender.com/recomendaciones/${UserID}`
+        )
           .then((response) => response.json())
           .then((data) => {
             // Mostrar la imagen del producto principal
@@ -82,9 +85,10 @@
             container.innerHTML = ""; // Limpiar contenedor anterior
             data.forEach(async (product) => {
               // `https://sistema-de-recomendacion-2.onrender.com/product/${product.id2}`
+              // `https://asistente-virtual-v3xy.onrender.com/product/${product.id2}`
               // `http://127.0.0.1:8000/product/${product.id2}`
               const response = await fetch(
-                `http://127.0.0.1:8000/product/${product.id2}`
+                `https://asistente-virtual-v3xy.onrender.com/product/${product.id2}`
               );
               const producto = await response.json();
 
